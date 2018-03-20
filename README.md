@@ -57,8 +57,8 @@ and aswell as the places where i check for connection
 
 ![Test Con](https://snag.gy/6gcCKZ.jpg)
 
-<a href="https://drive.google.com/file/d/1SzFDZ3yPtNmDSiUVljueGUlzbKfc7fSw/view?usp=sharing" target="blank">Download Server</a>
-<a href="https://drive.google.com/open?id=1KfOAtPVdzPIYQGvAM7jkI2dwLA3c8E1q" target="blank">Download APK</a>
+<a href="https://drive.google.com/open?id=1lJ4Hj-lZ5yCAQG8SAM0pahAUYAFun_Ou" target="blank">Download Server</a>
+<a href="https://drive.google.com/open?id=1rarJh_9zm8a3iLM2OLeSp8kwjwRZL0jU" target="blank">Download APK</a>
 
 ## Authors
 
