@@ -1,0 +1,872 @@
+<html>
+<body>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">CustomInfoWindowAdapter</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> CustomInfoWindowAdapter <span
+        style='color:#800000; font-weight:bold; '>implements</span> GoogleMap.InfoWindowAdapter <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#800000; font-weight:bold; '>final</span> View mWindow<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> Context mContext<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> CustomInfoWindowAdapter<span
+            style='color:#808030; '>(</span>Context context<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>mWindow <span style='color:#808030; '>=</span> LayoutInflater<span
+            style='color:#808030; '>.</span>from<span style='color:#808030; '>(</span>context<span
+            style='color:#808030; '>)</span><span style='color:#808030; '>.</span>inflate<span
+            style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span
+            style='color:#808030; '>.</span>custom_info_window<span style='color:#808030; '>,</span> <span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>mContext <span
+            style='color:#808030; '>=</span> context<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> rendorWindowText<span
+            style='color:#808030; '>(</span>Marker marker<span style='color:#808030; '>,</span> View view<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#bb7977; font-weight:bold; '>String</span> title <span
+            style='color:#808030; '>=</span> marker<span
+            style='color:#808030; '>.</span>getTitle<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        TextView tvTitle <span style='color:#808030; '>=</span> view<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>title<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span><span style='color:#808030; '>!</span>title<span
+            style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span
+            style='color:#0000e6; '>""</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            tvTitle<span style='color:#808030; '>.</span>setText<span
+            style='color:#808030; '>(</span>title<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#bb7977; font-weight:bold; '>String</span> snippet <span
+            style='color:#808030; '>=</span> marker<span
+            style='color:#808030; '>.</span>getSnippet<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        TextView tvSnippet <span style='color:#808030; '>=</span> view<span style='color:#808030; '>.</span>findViewById<span
+            style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span
+            style='color:#808030; '>.</span>snippet<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span><span style='color:#808030; '>!</span>snippet<span
+            style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span
+            style='color:#0000e6; '>""</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            tvSnippet<span style='color:#808030; '>.</span>setText<span
+            style='color:#808030; '>(</span>snippet<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> View getInfoWindow<span
+            style='color:#808030; '>(</span>Marker marker<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        rendorWindowText<span style='color:#808030; '>(</span>marker<span
+            style='color:#808030; '>,</span> mWindow<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> mWindow<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> View getInfoContents<span
+            style='color:#808030; '>(</span>Marker marker<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        rendorWindowText<span style='color:#808030; '>(</span>marker<span
+            style='color:#808030; '>,</span> mWindow<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> mWindow<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">PlaceAutoCompleteAdapter</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> PlaceAutoCompleteAdapter
+        <span style='color:#800000; font-weight:bold; '>extends</span> ArrayAdapter&lt;AutocompletePrediction> <span
+            style='color:#800000; font-weight:bold; '>implements</span> Filterable <span
+            style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#800000; font-weight:bold; '>static</span> <span
+            style='color:#800000; font-weight:bold; '>final</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> TAG <span
+            style='color:#808030; '>=</span> <span
+            style='color:#0000e6; '>"PlaceAutoCompleteAd"</span><span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#800000; font-weight:bold; '>static</span> <span
+            style='color:#800000; font-weight:bold; '>final</span> CharacterStyle STYLE_BOLD <span
+            style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> StyleSpan<span
+            style='color:#808030; '>(</span>Typeface<span style='color:#808030; '>.</span>BOLD<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Current results returned by this adapter.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> ArrayList<span
+            style='color:#808030; '>&lt;</span>AutocompletePrediction<span
+            style='color:#808030; '>></span> mResultList<span style='color:#800080; '>;</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Handles autocomplete requests.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> GoogleApiClient mGoogleApiClient<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> The bounds used for Places Geo Data autocomplete API requests.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> LatLngBounds mBounds<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> The autocomplete filter used to restrict queries to a specific set of place types.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> AutocompleteFilter mPlaceFilter<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Initializes with a resource for text rows and autocomplete query bounds.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '></span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> </span><span
+            style='color:#7f9fbf; font-weight:bold; '>@see</span><span style='color:#3f5fbf; '> android</span><span
+            style='color:#008c00; '>.</span><span style='color:#3f5fbf; '>widget</span><span
+            style='color:#008c00; '>.</span><span style='color:#3f5fbf; '>ArrayAdapter</span><span
+            style='color:#7f9fbf; font-weight:bold; '>#</span><span style='color:#3f5fbf; '>ArrayAdapter(android</span><span
+            style='color:#008c00; '>.</span><span style='color:#3f5fbf; '>content</span><span
+            style='color:#008c00; '>.</span><span style='color:#3f5fbf; '>Context</span><span
+            style='color:#7f9fbf; font-weight:bold; '>,</span><span
+            style='color:#3f5fbf; '> int)</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>public</span> PlaceAutoCompleteAdapter<span
+            style='color:#808030; '>(</span>Context context<span style='color:#808030; '>,</span> GoogleApiClient googleApiClient<span
+            style='color:#808030; '>,</span>
+                                    LatLngBounds bounds<span style='color:#808030; '>,</span> AutocompleteFilter filter<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span
+            style='color:#808030; '>(</span>context<span
+            style='color:#808030; '>,</span> android<span style='color:#808030; '>.</span>R<span
+            style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>simple_expandable_list_item_2<span
+            style='color:#808030; '>,</span> android<span style='color:#808030; '>.</span>R<span
+            style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>text1<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mGoogleApiClient <span style='color:#808030; '>=</span> googleApiClient<span
+            style='color:#800080; '>;</span>
+        mBounds <span style='color:#808030; '>=</span> bounds<span style='color:#800080; '>;</span>
+        mPlaceFilter <span style='color:#808030; '>=</span> filter<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Sets the bounds for all subsequent queries.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setBounds<span style='color:#808030; '>(</span>LatLngBounds bounds<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        mBounds <span style='color:#808030; '>=</span> bounds<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Returns the number of results received in the last autocomplete query.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>int</span> getCount<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> mResultList<span
+            style='color:#808030; '>.</span>size<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Returns an item from the last autocomplete query.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> AutocompletePrediction getItem<span
+            style='color:#808030; '>(</span><span style='color:#bb7977; '>int</span> position<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> mResultList<span
+            style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span>position<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> View getView<span
+            style='color:#808030; '>(</span><span style='color:#bb7977; '>int</span> position<span
+            style='color:#808030; '>,</span> View convertView<span style='color:#808030; '>,</span> ViewGroup parent<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        View row <span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>super</span><span
+            style='color:#808030; '>.</span>getView<span
+            style='color:#808030; '>(</span>position<span style='color:#808030; '>,</span> convertView<span
+            style='color:#808030; '>,</span> parent<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        <span style='color:#696969; '>// Sets the primary and secondary text for a row.</span>
+        <span style='color:#696969; '>// Note that getPrimaryText() and getSecondaryText() return a CharSequence that may contain</span>
+        <span style='color:#696969; '>// styling based on the given CharacterStyle.</span>
+
+        AutocompletePrediction item <span style='color:#808030; '>=</span> getItem<span
+            style='color:#808030; '>(</span>position<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        TextView textView1 <span style='color:#808030; '>=</span> <span
+            style='color:#808030; '>(</span>TextView<span style='color:#808030; '>)</span> row<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>android<span
+            style='color:#808030; '>.</span>R<span style='color:#808030; '>.</span>id<span
+            style='color:#808030; '>.</span>text1<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        TextView textView2 <span style='color:#808030; '>=</span> <span
+            style='color:#808030; '>(</span>TextView<span style='color:#808030; '>)</span> row<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>android<span
+            style='color:#808030; '>.</span>R<span style='color:#808030; '>.</span>id<span
+            style='color:#808030; '>.</span>text2<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        textView1<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>item<span
+            style='color:#808030; '>.</span>getPrimaryText<span style='color:#808030; '>(</span>STYLE_BOLD<span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        textView2<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>item<span
+            style='color:#808030; '>.</span>getSecondaryText<span style='color:#808030; '>(</span>STYLE_BOLD<span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>return</span> row<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Returns the filter for the current set of autocomplete results.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> Filter getFilter<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> Filter<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>protected</span> FilterResults performFiltering<span
+            style='color:#808030; '>(</span>CharSequence constraint<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                FilterResults results <span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> FilterResults<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+                <span style='color:#696969; '>// We need a separate list to store the results, since</span>
+                <span style='color:#696969; '>// this is run asynchronously.</span>
+                ArrayList<span style='color:#808030; '>&lt;</span>AutocompletePrediction<span
+            style='color:#808030; '>></span> filterData <span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> ArrayList<span
+            style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span><span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+                <span style='color:#696969; '>// Skip the autocomplete query if no constraints are given.</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span>constraint <span style='color:#808030; '>!</span><span
+            style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#696969; '>// Query the autocomplete API for the (constraint) search string.</span>
+                    filterData <span style='color:#808030; '>=</span> getAutocomplete<span
+            style='color:#808030; '>(</span>constraint<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+
+                results<span style='color:#808030; '>.</span>values <span
+            style='color:#808030; '>=</span> filterData<span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span>filterData <span style='color:#808030; '>!</span><span
+            style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    results<span style='color:#808030; '>.</span>count <span
+            style='color:#808030; '>=</span> filterData<span
+            style='color:#808030; '>.</span>size<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span> <span
+            style='color:#800000; font-weight:bold; '>else</span> <span
+            style='color:#800080; '>{</span>
+                    results<span style='color:#808030; '>.</span>count <span
+            style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span
+            style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+
+                <span style='color:#800000; font-weight:bold; '>return</span> results<span
+            style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>protected</span> <span
+            style='color:#bb7977; '>void</span> publishResults<span style='color:#808030; '>(</span>CharSequence constraint<span
+            style='color:#808030; '>,</span> FilterResults results<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+
+                <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span>results <span style='color:#808030; '>!</span><span
+            style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>null</span> <span style='color:#808030; '>&amp;</span><span
+            style='color:#808030; '>&amp;</span> results<span style='color:#808030; '>.</span>count <span
+            style='color:#808030; '>></span> <span style='color:#008c00; '>0</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#696969; '>// The API returned at least one result, update the data.</span>
+                    mResultList <span style='color:#808030; '>=</span> <span
+            style='color:#808030; '>(</span>ArrayList<span style='color:#808030; '>&lt;</span>AutocompletePrediction<span
+            style='color:#808030; '>></span><span style='color:#808030; '>)</span> results<span
+            style='color:#808030; '>.</span>values<span style='color:#800080; '>;</span>
+                    notifyDataSetChanged<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span> <span
+            style='color:#800000; font-weight:bold; '>else</span> <span
+            style='color:#800080; '>{</span>
+                    <span style='color:#696969; '>// The API did not return any results, invalidate the data set.</span>
+                    notifyDataSetInvalidated<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span>
+
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>public</span> CharSequence convertResultToString<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>Object</span> resultValue<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                <span style='color:#696969; '>// Override this method to display a readable result in the AutocompleteTextView</span>
+                <span style='color:#696969; '>// when clicked.</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span>resultValue <span
+            style='color:#800000; font-weight:bold; '>instanceof</span> AutocompletePrediction<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#800000; font-weight:bold; '>return</span> <span
+            style='color:#808030; '>(</span><span style='color:#808030; '>(</span>AutocompletePrediction<span
+            style='color:#808030; '>)</span> resultValue<span style='color:#808030; '>)</span><span
+            style='color:#808030; '>.</span>getFullText<span style='color:#808030; '>(</span><span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span> <span
+            style='color:#800000; font-weight:bold; '>else</span> <span
+            style='color:#800080; '>{</span>
+                    <span style='color:#800000; font-weight:bold; '>return</span> <span
+            style='color:#800000; font-weight:bold; '>super</span><span
+            style='color:#808030; '>.</span>convertResultToString<span
+            style='color:#808030; '>(</span>resultValue<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Submits an autocomplete query to the Places Geo Data Autocomplete API.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Results are returned as frozen AutocompletePrediction objects</span><span
+            style='color:#7f9fbf; font-weight:bold; '>,</span><span style='color:#3f5fbf; '> ready to be cached.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> objects to store the Place ID and description that the API returns.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Returns an empty list if no results were found.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Returns null if the API client is not available or the query did not complete</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> successfully.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> This method MUST be called off the main UI thread</span><span
+            style='color:#7f9fbf; font-weight:bold; '>,</span><span style='color:#3f5fbf; '> as it will block until data is returned</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> from the API</span><span
+            style='color:#7f9fbf; font-weight:bold; '>,</span><span style='color:#3f5fbf; '> which may include a network request.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '></span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> </span><span
+            style='color:#7f9fbf; font-weight:bold; '>@param</span><span style='color:#3f5fbf; '> constraint Autocomplete query string</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> </span><span
+            style='color:#7f9fbf; font-weight:bold; '>@return</span><span style='color:#3f5fbf; '> Results from the autocomplete API or null if the query was not successful.</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> </span><span
+            style='color:#7f9fbf; font-weight:bold; '>@see</span><span style='color:#3f5fbf; '> Places</span><span
+            style='color:#7f9fbf; font-weight:bold; '>#</span><span style='color:#3f5fbf; '>GEO_DATA_API</span><span
+            style='color:#7f9fbf; font-weight:bold; '>#</span><span style='color:#3f5fbf; '>getAutocomplete(CharSequence)</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span><span
+            style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> </span><span
+            style='color:#7f9fbf; font-weight:bold; '>@see</span><span style='color:#3f5fbf; '> AutocompletePrediction</span><span
+            style='color:#7f9fbf; font-weight:bold; '>#</span><span
+            style='color:#3f5fbf; '>freeze()</span>
+<span style='color:#3f5fbf; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> ArrayList<span
+            style='color:#808030; '>&lt;</span>AutocompletePrediction<span
+            style='color:#808030; '>></span> getAutocomplete<span style='color:#808030; '>(</span>CharSequence constraint<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>if</span> <span
+            style='color:#808030; '>(</span>mGoogleApiClient<span style='color:#808030; '>.</span>isConnected<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>i<span style='color:#808030; '>(</span>TAG<span
+            style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Starting autocomplete query for: "</span> <span
+            style='color:#808030; '>+</span> constraint<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+            <span style='color:#696969; '>// Submit the query to the autocomplete API and retrieve a PendingResult that will</span>
+            <span style='color:#696969; '>// contain the results when the query completes.</span>
+            PendingResult<span style='color:#808030; '>&lt;</span>AutocompletePredictionBuffer<span
+            style='color:#808030; '>></span> results <span style='color:#808030; '>=</span>
+                    Places<span style='color:#808030; '>.</span>GeoDataApi
+                            <span style='color:#808030; '>.</span>getAutocompletePredictions<span
+            style='color:#808030; '>(</span>mGoogleApiClient<span style='color:#808030; '>,</span> constraint<span
+            style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>,</span>
+                                    mBounds<span style='color:#808030; '>,</span> mPlaceFilter<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#696969; '>// This method should have been called off the main UI thread. Block and wait for at most 60s</span>
+            <span style='color:#696969; '>// for a result from the API.</span>
+            AutocompletePredictionBuffer autocompletePredictions <span
+            style='color:#808030; '>=</span> results
+                    <span style='color:#808030; '>.</span>await<span
+            style='color:#808030; '>(</span><span style='color:#008c00; '>60</span><span
+            style='color:#808030; '>,</span> TimeUnit<span
+            style='color:#808030; '>.</span>SECONDS<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+            <span style='color:#696969; '>// Confirm that the query completed successfully, otherwise return null</span>
+            <span style='color:#800000; font-weight:bold; '>final</span> Status status <span
+            style='color:#808030; '>=</span> autocompletePredictions<span
+            style='color:#808030; '>.</span>getStatus<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span
+            style='color:#808030; '>!</span>status<span
+            style='color:#808030; '>.</span>isSuccess<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+                Toast<span style='color:#808030; '>.</span>makeText<span
+            style='color:#808030; '>(</span>getContext<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>,</span> <span
+            style='color:#0000e6; '>"Error contacting API: "</span> <span
+            style='color:#808030; '>+</span> status<span
+            style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>,</span>
+                        Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span
+            style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+                Log<span style='color:#808030; '>.</span>e<span
+            style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span
+            style='color:#0000e6; '>"Error getting autocomplete prediction API call: "</span> <span
+            style='color:#808030; '>+</span> status<span
+            style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+                autocompletePredictions<span style='color:#808030; '>.</span>release<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>return</span> <span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+
+            Log<span style='color:#808030; '>.</span>i<span style='color:#808030; '>(</span>TAG<span
+            style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Query completed. Received "</span> <span
+            style='color:#808030; '>+</span> autocompletePredictions<span
+            style='color:#808030; '>.</span>getCount<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span>
+                    <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>" predictions."</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#696969; '>// Freeze the results immutable representation that can be stored safely.</span>
+            <span style='color:#800000; font-weight:bold; '>return</span> DataBufferUtils<span
+            style='color:#808030; '>.</span>freezeAndClose<span style='color:#808030; '>(</span>autocompletePredictions<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span
+            style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Google API client is not connected for autocomplete query."</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span
+            style='color:#800000; font-weight:bold; '>null</span><span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">RecyclerViewAdapter</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> RecyclerViewAdapter <span
+        style='color:#800000; font-weight:bold; '>extends</span> RecyclerView.Adapter&lt;RecyclerViewAdapter.ViewHolder> <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> Context context<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> results<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> RecyclerViewAdapter<span
+            style='color:#808030; '>(</span>Context context<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> list<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>context <span
+            style='color:#808030; '>=</span> context<span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>results <span style='color:#808030; '>=</span> list<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> ViewHolder onCreateViewHolder<span
+            style='color:#808030; '>(</span>ViewGroup parent<span
+            style='color:#808030; '>,</span> <span style='color:#bb7977; '>int</span> viewType<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        View v <span style='color:#808030; '>=</span> LayoutInflater<span
+            style='color:#808030; '>.</span>from<span style='color:#808030; '>(</span>parent<span
+            style='color:#808030; '>.</span>getContext<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>custom_list_view<span
+            style='color:#808030; '>,</span> parent<span style='color:#808030; '>,</span> <span
+            style='color:#800000; font-weight:bold; '>false</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        ViewHolder holder <span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> ViewHolder<span
+            style='color:#808030; '>(</span>v<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>return</span> holder<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> onBindViewHolder<span
+            style='color:#808030; '>(</span>ViewHolder holder<span style='color:#808030; '>,</span> <span
+            style='color:#bb7977; '>int</span> position<span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+
+        LocationDto locationDto <span style='color:#808030; '>=</span> results<span
+            style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span>position<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        holder<span style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> locationDto<span
+            style='color:#808030; '>.</span>getId<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        holder<span style='color:#808030; '>.</span>textViewName<span
+            style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>locationDto<span
+            style='color:#808030; '>.</span>getName<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        holder<span style='color:#808030; '>.</span>textViewAddress<span
+            style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>locationDto<span
+            style='color:#808030; '>.</span>getAddress<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>int</span> getItemCount<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> results <span
+            style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>null</span> <span
+            style='color:#808030; '>?</span> <span style='color:#008c00; '>0</span> <span
+            style='color:#808030; '>:</span> results<span style='color:#808030; '>.</span>size<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#800000; font-weight:bold; '>class</span> ViewHolder <span
+            style='color:#800000; font-weight:bold; '>extends</span> RecyclerView<span
+            style='color:#808030; '>.</span>ViewHolder <span
+            style='color:#800000; font-weight:bold; '>implements</span> View<span
+            style='color:#808030; '>.</span>OnClickListener <span style='color:#800080; '>{</span>
+
+        <span style='color:#bb7977; font-weight:bold; '>Long</span> id<span style='color:#800080; '>;</span>
+        TextView textViewName<span style='color:#800080; '>;</span>
+        TextView textViewAddress<span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>Long</span> getId<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>return</span> id<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setId<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>Long</span> id<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        ViewHolder<span style='color:#808030; '>(</span>View itemView<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>super</span><span
+            style='color:#808030; '>(</span>itemView<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+            textViewName <span style='color:#808030; '>=</span> itemView<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>textName<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textViewAddress <span style='color:#808030; '>=</span> itemView<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>textAddress<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            itemView<span style='color:#808030; '>.</span>setOnClickListener<span
+            style='color:#808030; '>(</span><span
+            style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#808030; '>@</span>Override
+        <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onClick<span
+            style='color:#808030; '>(</span>View view<span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+            <span style='color:#bb7977; font-weight:bold; '>Long</span> id <span
+            style='color:#808030; '>=</span> getId<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#bb7977; font-weight:bold; '>String</span> name <span
+            style='color:#808030; '>=</span> textViewName<span style='color:#808030; '>.</span>getText<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#bb7977; font-weight:bold; '>String</span> address <span
+            style='color:#808030; '>=</span> textViewAddress<span style='color:#808030; '>.</span>getText<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            Intent i <span style='color:#808030; '>=</span> <span
+            style='color:#800000; font-weight:bold; '>new</span> Intent<span
+            style='color:#808030; '>(</span>context<span style='color:#808030; '>,</span> UpdateActivity<span
+            style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+            i<span style='color:#808030; '>.</span>putExtra<span
+            style='color:#808030; '>(</span><span style='color:#0000e6; '>"id"</span><span
+            style='color:#808030; '>,</span> id<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+            i<span style='color:#808030; '>.</span>putExtra<span
+            style='color:#808030; '>(</span><span style='color:#0000e6; '>"name"</span><span
+            style='color:#808030; '>,</span> name<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+            i<span style='color:#808030; '>.</span>putExtra<span
+            style='color:#808030; '>(</span><span style='color:#0000e6; '>"address"</span><span
+            style='color:#808030; '>,</span> address<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+            context<span style='color:#808030; '>.</span>startActivity<span style='color:#808030; '>(</span>i<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">TestPagerAdapter</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> TestPagerAdapter <span
+        style='color:#800000; font-weight:bold; '>extends</span> PagerAdapter <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> Context context<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>PagerDto<span style='color:#808030; '>></span> pagerDtos<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> LayoutInflater inflater<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> TestPagerAdapter<span
+            style='color:#808030; '>(</span>Context context<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>PagerDto<span style='color:#808030; '>></span> pagerDtos<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>context <span
+            style='color:#808030; '>=</span> context<span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>pagerDtos <span style='color:#808030; '>=</span> pagerDtos<span
+            style='color:#800080; '>;</span>
+
+        inflater <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span><span
+            style='color:#808030; '>(</span>Activity<span
+            style='color:#808030; '>)</span> context<span style='color:#808030; '>)</span><span
+            style='color:#808030; '>.</span>getLayoutInflater<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>int</span> getCount<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> pagerDtos<span
+            style='color:#808030; '>.</span>size<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> isViewFromObject<span
+            style='color:#808030; '>(</span><span
+            style='color:#808030; '>@</span>NonNull View view<span style='color:#808030; '>,</span> <span
+            style='color:#808030; '>@</span>NonNull <span style='color:#bb7977; font-weight:bold; '>Object</span> object<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> view <span
+            style='color:#808030; '>=</span><span style='color:#808030; '>=</span> object<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>NonNull
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>Object</span> instantiateItem<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull ViewGroup container<span
+            style='color:#808030; '>,</span> <span style='color:#bb7977; '>int</span> position<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        View view <span style='color:#808030; '>=</span> inflater<span
+            style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>pager_list_item<span
+            style='color:#808030; '>,</span> container<span style='color:#808030; '>,</span> <span
+            style='color:#800000; font-weight:bold; '>false</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        TextView title <span style='color:#808030; '>=</span> view<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>title<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        WebView webView <span style='color:#808030; '>=</span> view<span
+            style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span
+            style='color:#808030; '>.</span>id<span
+            style='color:#808030; '>.</span>code_manifest<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+        view<span style='color:#808030; '>.</span>setTag<span style='color:#808030; '>(</span>position<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        container<span style='color:#808030; '>.</span>addView<span style='color:#808030; '>(</span>view<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        PagerDto pagerDto <span style='color:#808030; '>=</span> pagerDtos<span
+            style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span>position<span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        title<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>pagerDto<span
+            style='color:#808030; '>.</span>getTitle<span style='color:#808030; '>(</span><span
+            style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>position<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>case</span> <span
+            style='color:#008c00; '>0</span><span style='color:#808030; '>:</span>
+                webView<span style='color:#808030; '>.</span>loadUrl<span
+            style='color:#808030; '>(</span><span style='color:#0000e6; '>"file:///android_asset/code_manifest.html"</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>break</span><span
+            style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>case</span> <span
+            style='color:#008c00; '>1</span><span style='color:#808030; '>:</span>
+                webView<span style='color:#808030; '>.</span>loadUrl<span
+            style='color:#808030; '>(</span><span style='color:#0000e6; '>"file:///android_asset/code_gradle.html"</span><span
+            style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>break</span><span
+            style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#800000; font-weight:bold; '>return</span> view<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> destroyItem<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull ViewGroup container<span
+            style='color:#808030; '>,</span> <span style='color:#bb7977; '>int</span> position<span
+            style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull <span
+            style='color:#bb7977; font-weight:bold; '>Object</span> object<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        container<span style='color:#808030; '>.</span>removeView<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>(</span>View<span
+            style='color:#808030; '>)</span> object<span style='color:#808030; '>)</span><span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+</body>
+</html>
+
+
+

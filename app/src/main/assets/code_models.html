@@ -1,0 +1,476 @@
+<html>
+<body>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">LocationDto</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> LocationDto <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>Long</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> address<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>Long</span> getId<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setId<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>Long</span> id<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getName<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setName<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> name<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>name <span style='color:#808030; '>=</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getAddress<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> address<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setAddress<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> address<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>address <span
+            style='color:#808030; '>=</span> address<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">PagerDto</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> PagerDto <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> title<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> PagerDto<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> title<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>title <span style='color:#808030; '>=</span> title<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getId<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setId<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getTitle<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> title<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setTitle<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> title<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>title <span style='color:#808030; '>=</span> title<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">PlaceDto</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> PlaceDto <span
+        style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> address<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> phoneNumber<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> Uri websiteUri<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> LatLng latLng<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>float</span> rating<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> attributions<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> PlaceDto<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> name<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> address<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> phoneNumber<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#808030; '>,</span> Uri websiteUri<span
+            style='color:#808030; '>,</span> LatLng latLng<span
+            style='color:#808030; '>,</span> <span style='color:#bb7977; '>float</span> rating<span
+            style='color:#808030; '>,</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> attributions<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>name <span style='color:#808030; '>=</span> name<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>address <span
+            style='color:#808030; '>=</span> address<span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>phoneNumber <span style='color:#808030; '>=</span> phoneNumber<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>websiteUri <span style='color:#808030; '>=</span> websiteUri<span
+            style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>latLng <span
+            style='color:#808030; '>=</span> latLng<span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>rating <span
+            style='color:#808030; '>=</span> rating<span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>attributions <span style='color:#808030; '>=</span> attributions<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> PlaceDto<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getName<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setName<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> name<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>name <span style='color:#808030; '>=</span> name<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getAddress<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> address<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setAddress<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> address<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>address <span
+            style='color:#808030; '>=</span> address<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getPhoneNumber<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> phoneNumber<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setPhoneNumber<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> phoneNumber<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>phoneNumber <span style='color:#808030; '>=</span> phoneNumber<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getId<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setId<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> id<span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> id<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> Uri getWebsiteUri<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> websiteUri<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setWebsiteUri<span style='color:#808030; '>(</span>Uri websiteUri<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>websiteUri <span style='color:#808030; '>=</span> websiteUri<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> LatLng getLatLng<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> latLng<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setLatLng<span style='color:#808030; '>(</span>LatLng latLng<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>latLng <span
+            style='color:#808030; '>=</span> latLng<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>float</span> getRating<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> rating<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setRating<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; '>float</span> rating<span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>rating <span
+            style='color:#808030; '>=</span> rating<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getAttributions<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> attributions<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setAttributions<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> attributions<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>attributions <span style='color:#808030; '>=</span> attributions<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> toString<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#0000e6; '>"PlaceDto{"</span> <span
+            style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>"name='"</span> <span style='color:#808030; '>+</span> name <span
+            style='color:#808030; '>+</span> <span style='color:#0000e6; '>'\''</span> <span
+            style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", address='"</span> <span
+            style='color:#808030; '>+</span> address <span style='color:#808030; '>+</span> <span
+            style='color:#0000e6; '>'\''</span> <span style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", phoneNumber='"</span> <span
+            style='color:#808030; '>+</span> phoneNumber <span
+            style='color:#808030; '>+</span> <span style='color:#0000e6; '>'\''</span> <span
+            style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", id='"</span> <span style='color:#808030; '>+</span> id <span
+            style='color:#808030; '>+</span> <span style='color:#0000e6; '>'\''</span> <span
+            style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", websiteUri="</span> <span
+            style='color:#808030; '>+</span> websiteUri <span style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", latLng="</span> <span
+            style='color:#808030; '>+</span> latLng <span style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", rating="</span> <span
+            style='color:#808030; '>+</span> rating <span style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>", attributions='"</span> <span
+            style='color:#808030; '>+</span> attributions <span
+            style='color:#808030; '>+</span> <span style='color:#0000e6; '>'\''</span> <span
+            style='color:#808030; '>+</span>
+                <span style='color:#0000e6; '>'}'</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span
+        style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">Value</span></span>
+</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span
+        style='color:#800000; font-weight:bold; '>class</span> Value <span
+        style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> value<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> message<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> result<span
+            style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getValue<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> value<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setValue<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> value<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>value <span style='color:#808030; '>=</span> value<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>String</span> getMessage<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> message<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setMessage<span
+            style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>String</span> message<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>message <span
+            style='color:#808030; '>=</span> message<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> getResult<span
+            style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span
+            style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> result<span
+            style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span
+            style='color:#bb7977; '>void</span> setResult<span style='color:#808030; '>(</span><span
+            style='color:#bb7977; font-weight:bold; '>List</span><span
+            style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> result<span
+            style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span
+            style='color:#808030; '>.</span>result <span
+            style='color:#808030; '>=</span> result<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+</body>
+</html>

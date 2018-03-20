@@ -1,0 +1,155 @@
+<html>
+<body>
+<pre style='color:#000020;background:#f6f8ff;'><span style='color:#004a43; '>&lt;?</span><span
+        style='color:#200080; font-weight:bold; '>xml</span><span
+        style='color:#004a43; '> </span><span style='color:#074726; '>version</span><span
+        style='color:#308080; '>=</span><span style='color:#800000; '>"</span><span
+        style='color:#7d0045; '>1.0</span><span style='color:#800000; '>"</span><span
+        style='color:#004a43; '> </span><span style='color:#074726; '>encoding</span><span
+        style='color:#308080; '>=</span><span style='color:#800000; '>"</span><span
+        style='color:#1060b6; '>utf-8</span><span style='color:#800000; '>"</span><span
+        style='color:#004a43; '>?></span>
+<span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>manifest</span> <span
+            style='color:#0066ee; '>xmlns</span><span style='color:#406080; '>:</span><span
+            style='color:#074726; '>android</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#0066ee; '>http</span><span
+            style='color:#406080; '>:</span><span
+            style='color:#200080; font-weight:bold; '>//</span><span style='color:#5555dd; '>schemas.android.com</span><span
+            style='color:#40015a; '>/apk/res/android</span><span style='color:#800000; '>"</span>
+    <span style='color:#474796; '>package</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>com.rogmax.amirjaber.playground</span><span
+            style='color:#800000; '>"</span><span style='color:#0057a6; '>></span>
+
+    <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>uses-permission</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>android.permission.INTERNET</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+    <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>uses-permission</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>android.permission.ACCESS_FINE_LOCATION</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+    <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>uses-permission</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>android.permission.ACCESS_COARSE_LOCATION</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+    <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>uses-permission</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>android.permission.ACCESS_NETWORK_STATE</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+
+    <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>application</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>allowBackup</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>true</span><span
+            style='color:#800000; '>"</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>icon</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>@mipmap/ic_launcher</span><span
+            style='color:#800000; '>"</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>label</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>@string/app_name</span><span style='color:#800000; '>"</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>roundIcon</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>@mipmap/ic_launcher_round</span><span
+            style='color:#800000; '>"</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>supportsRtl</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>true</span><span
+            style='color:#800000; '>"</span>
+        <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>theme</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>@style/Theme.AppCompat</span><span
+            style='color:#800000; '>"</span><span style='color:#0057a6; '>></span>
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>meta-data</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>com.google.android.geo.API_KEY</span><span
+            style='color:#800000; '>"</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>value</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>AIzaSyCLZLmrp7MsfuIAm6epHC-nEkr-iFSpDGs</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>meta-data</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>com.google.android.gms.version</span><span
+            style='color:#800000; '>"</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>version</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>@integer/google_play_services_version</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>activity</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>.MainActivity</span><span
+            style='color:#800000; '>"</span><span style='color:#0057a6; '>></span>
+            <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>intent-filter</span><span style='color:#0057a6; '>></span>
+                <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>action</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>android.intent.action.MAIN</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+
+                <span style='color:#0057a6; '>&lt;</span><span
+            style='color:#333385; '>category</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>android.intent.category.LAUNCHER</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+            <span style='color:#0057a6; '>&lt;/</span><span
+            style='color:#333385; '>intent-filter</span><span style='color:#0057a6; '>></span>
+        <span style='color:#0057a6; '>&lt;/</span><span style='color:#333385; '>activity</span><span
+            style='color:#0057a6; '>></span>
+
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>meta-data</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>preloaded_fonts</span><span style='color:#800000; '>"</span>
+            <span style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>resource</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>@array/preloaded_fonts</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>activity</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>.MapActivity</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>activity</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>.UpdateActivity</span><span
+            style='color:#800000; '>"</span> <span style='color:#0057a6; '>/></span>
+        <span style='color:#0057a6; '>&lt;</span><span style='color:#333385; '>activity</span> <span
+            style='color:#007997; '>android</span><span style='color:#406080; '>:</span><span
+            style='color:#474796; '>name</span><span style='color:#308080; '>=</span><span
+            style='color:#800000; '>"</span><span style='color:#1060b6; '>.ViewActivity</span><span
+            style='color:#800000; '>"</span><span style='color:#0057a6; '>></span><span
+            style='color:#0057a6; '>&lt;/</span><span style='color:#333385; '>activity</span><span
+            style='color:#0057a6; '>></span>
+    <span style='color:#0057a6; '>&lt;/</span><span style='color:#333385; '>application</span><span
+            style='color:#0057a6; '>></span>
+
+<span style='color:#0057a6; '>&lt;/</span><span style='color:#333385; '>manifest</span><span
+            style='color:#0057a6; '>></span>
+</pre>
+</body>
+</html>

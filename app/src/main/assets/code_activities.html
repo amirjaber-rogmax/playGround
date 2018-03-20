@@ -1,0 +1,827 @@
+<html>
+<body>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">MainActivity</span></span></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> MainActivity <span style='color:#800000; font-weight:bold; '>extends</span> AppCompatActivity <span style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>String</span> TAG <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"MainActivity"</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; '>int</span> ERROR_DIALOG_REQUEST <span style='color:#808030; '>=</span> <span style='color:#008c00; '>9001</span><span style='color:#800080; '>;</span>
+
+
+    <span style='color:#696969; '>//vars</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> SharedPreferences preferences<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> SharedPreferences<span style='color:#808030; '>.</span>Editor editor<span style='color:#800080; '>;</span>
+
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onCreate<span style='color:#808030; '>(</span>Bundle savedInstanceState<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onCreate<span style='color:#808030; '>(</span>savedInstanceState<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        setContentView<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>activity_main<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        preferences <span style='color:#808030; '>=</span> PreferenceManager<span style='color:#808030; '>.</span>getDefaultSharedPreferences<span style='color:#808030; '>(</span>getApplicationContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        editor <span style='color:#808030; '>=</span> preferences<span style='color:#808030; '>.</span>edit<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+        ScheduledExecutorService scheduledExecutorService <span style='color:#808030; '>=</span> Executors<span style='color:#808030; '>.</span>newSingleThreadScheduledExecutor<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        scheduledExecutorService<span style='color:#808030; '>.</span>scheduleAtFixedRate<span style='color:#808030; '>(</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+                <span style='color:#bb7977; font-weight:bold; '>URL</span> server <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> <span style='color:#bb7977; font-weight:bold; '>URL</span><span style='color:#808030; '>(</span><span style='color:#0000e6; '>"http://unitestproj.tk"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#bb7977; font-weight:bold; '>URLConnection</span> connection <span style='color:#808030; '>=</span> server<span style='color:#808030; '>.</span>openConnection<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                connection<span style='color:#808030; '>.</span>setConnectTimeout<span style='color:#808030; '>(</span><span style='color:#008c00; '>3000</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                connection<span style='color:#808030; '>.</span>connect<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                editor<span style='color:#808030; '>.</span>putString<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"key_connected"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"true"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>apply<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Exception</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                editor<span style='color:#808030; '>.</span>putString<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"key_connected"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"false"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>apply<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+            <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> preferences<span style='color:#808030; '>.</span>getString<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"key_connected"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>""</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onCreate: Connection status: "</span> <span style='color:#808030; '>+</span> value<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>3</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>3</span><span style='color:#808030; '>,</span> TimeUnit<span style='color:#808030; '>.</span>SECONDS<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>isServicesOK<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            init<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#bb7977; font-weight:bold; '>Button</span> getLocation <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>get_location<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        getLocation<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span style='color:#0000e6; '>"true"</span><span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span>preferences<span style='color:#808030; '>.</span>getString<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"key_connected"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>""</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+
+                GPStracker g <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> GPStracker<span style='color:#808030; '>(</span>getApplicationContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                Location l <span style='color:#808030; '>=</span> g<span style='color:#808030; '>.</span>getLocation<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>l <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#bb7977; '>double</span> lat <span style='color:#808030; '>=</span> l<span style='color:#808030; '>.</span>getLatitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#bb7977; '>double</span> lon <span style='color:#808030; '>=</span> l<span style='color:#808030; '>.</span>getLongitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    showLongToast<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Latitude: "</span> <span style='color:#808030; '>+</span> lat <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>Longitude: "</span> <span style='color:#808030; '>+</span> lon<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+
+                Intent intent <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Intent<span style='color:#808030; '>(</span>MainActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> ViewActivity<span style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                startActivity<span style='color:#808030; '>(</span>intent<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span style='color:#0000e6; '>"false"</span><span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span>preferences<span style='color:#808030; '>.</span>getString<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"key_connected"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>""</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                AlertDialog<span style='color:#808030; '>.</span>Builder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AlertDialog<span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span>MainActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                builder<span style='color:#808030; '>.</span>setMessage<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Could not connect to server!"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                builder<span style='color:#808030; '>.</span>setNeutralButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"acknowledge"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span><span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+                    dialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                builder<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+
+
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#bb7977; font-weight:bold; '>Button</span> readMe <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>read_me<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        readMe<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+
+            AlertDialog<span style='color:#808030; '>.</span>Builder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AlertDialog<span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            LayoutInflater inflater <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>getLayoutInflater<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#808030; '>@</span>SuppressLint<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"InflateParams"</span><span style='color:#808030; '>)</span> <span style='color:#800000; font-weight:bold; '>final</span> View readMeView <span style='color:#808030; '>=</span> inflater<span style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>pager_layout<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setView<span style='color:#808030; '>(</span>readMeView<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setCancelable<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>true</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#bb7977; font-weight:bold; '>List</span><span style='color:#808030; '>&lt;</span>PagerDto<span style='color:#808030; '>></span> pagerDtos <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ArrayList<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Manifest"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"2"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Gradle"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"3"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Adapters"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"4"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Models"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"5"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Retrofit"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pagerDtos<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> PagerDto<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"6"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Android Activities"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            TestPagerAdapter adapter <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> TestPagerAdapter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> pagerDtos<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            ViewPager pager <span style='color:#808030; '>=</span> readMeView<span style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>container<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pager<span style='color:#808030; '>.</span>setAdapter<span style='color:#808030; '>(</span>adapter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            CirclePageIndicator pageIndicator <span style='color:#808030; '>=</span> readMeView<span style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>page_indicator<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pageIndicator<span style='color:#808030; '>.</span>setViewPager<span style='color:#808030; '>(</span>pager<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            pageIndicator<span style='color:#808030; '>.</span>setCurrentItem<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            AlertDialog dialog <span style='color:#808030; '>=</span> builder<span style='color:#808030; '>.</span>create<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            dialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> init<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#bb7977; font-weight:bold; '>Button</span> mapActivity <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>map_button<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mapActivity<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            Intent intent <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Intent<span style='color:#808030; '>(</span>MainActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> MapActivity<span style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            startActivity<span style='color:#808030; '>(</span>intent<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+    <span style='color:#800080; '>}</span>
+
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> isServicesOK<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"isServicesOK(): checking google services version"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#bb7977; '>int</span> available <span style='color:#808030; '>=</span> GoogleApiAvailability<span style='color:#808030; '>.</span>getInstance<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>isGooglePlayServicesAvailable<span style='color:#808030; '>(</span>MainActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>available <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> ConnectionResult<span style='color:#808030; '>.</span>SUCCESS<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#696969; '>//everything is fine and the user can make map requests</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"isServicesOK: Google Play Services is working"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>GoogleApiAvailability<span style='color:#808030; '>.</span>getInstance<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>isUserResolvableError<span style='color:#808030; '>(</span>available<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#696969; '>//an error has occurred but we can resolve it</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"isServicesOK(): an error occurred but we can fix it"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#bb7977; font-weight:bold; '>Dialog</span> dialog <span style='color:#808030; '>=</span> GoogleApiAvailability<span style='color:#808030; '>.</span>getInstance<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getErrorDialog<span style='color:#808030; '>(</span>MainActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> available<span style='color:#808030; '>,</span> ERROR_DIALOG_REQUEST<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            dialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+            Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"You can't make map requests"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> showLongToast<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> message<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_LONG<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">MapActivity</span></span></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> MapActivity <span style='color:#800000; font-weight:bold; '>extends</span> AppCompatActivity <span style='color:#800000; font-weight:bold; '>implements</span> OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener <span style='color:#800080; '>{</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onConnectionFailed<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull ConnectionResult connectionResult<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onMapReady<span style='color:#808030; '>(</span>GoogleMap googleMap<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Map is Ready"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onMapReady: Map is Ready"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mMap <span style='color:#808030; '>=</span> googleMap<span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>mLocationPermissionGranted<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            getDeviceLocation<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>ActivityCompat<span style='color:#808030; '>.</span>checkSelfPermission<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_FINE_LOCATION<span style='color:#808030; '>)</span> <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> PackageManager<span style='color:#808030; '>.</span>PERMISSION_GRANTED <span style='color:#808030; '>&amp;</span><span style='color:#808030; '>&amp;</span>
+                    ActivityCompat<span style='color:#808030; '>.</span>checkSelfPermission<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_COARSE_LOCATION<span style='color:#808030; '>)</span> <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> PackageManager<span style='color:#808030; '>.</span>PERMISSION_GRANTED<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+            mMap<span style='color:#808030; '>.</span>setMyLocationEnabled<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>true</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mMap<span style='color:#808030; '>.</span>getUiSettings<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>setMyLocationButtonEnabled<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            init<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>String</span> TAG <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"MapActivity"</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>String</span> FINE_LOCATION <span style='color:#808030; '>=</span> Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_FINE_LOCATION<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>String</span> COURSE_LOCATION <span style='color:#808030; '>=</span> Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_COARSE_LOCATION<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; '>int</span> LOCATION_PERMISSION_REQUEST_CODE <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1234</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; '>float</span> DEFAULT_ZOOM <span style='color:#808030; '>=</span> 15f<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; '>int</span> PLACE_PICKER_REQUEST <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> LatLngBounds LAT_LNG_BOUNDS <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> LatLngBounds<span style='color:#808030; '>(</span>
+            <span style='color:#800000; font-weight:bold; '>new</span> LatLng<span style='color:#808030; '>(</span><span style='color:#808030; '>-</span><span style='color:#008c00; '>40</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>-</span><span style='color:#008c00; '>168</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>new</span> LatLng<span style='color:#808030; '>(</span><span style='color:#008c00; '>71</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>139</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#696969; '>//retrofit</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> MainFacade userController<span style='color:#800080; '>;</span>
+
+    <span style='color:#696969; '>//widgets</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> AutoCompleteTextView mSearchText<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> ImageView mGps<span style='color:#808030; '>,</span> mInfo<span style='color:#808030; '>,</span> mPlacePicker<span style='color:#808030; '>,</span> mPlaceSender<span style='color:#800080; '>;</span>
+
+    <span style='color:#696969; '>//vars</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> Boolean mLocationPermissionGranted <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> GoogleMap mMap<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> FusedLocationProviderClient mFusedLocationProviderClient<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> PlaceAutoCompleteAdapter mPlaceAutoCompleteAdapter<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> GoogleApiClient mGoogleApiClient<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> PlaceDto mPlace<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> Marker mMarker<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> ProgressDialog progressDialog<span style='color:#800080; '>;</span>
+    <span style='color:#bb7977; font-weight:bold; '>String</span> name<span style='color:#808030; '>,</span> address<span style='color:#800080; '>;</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onCreate<span style='color:#808030; '>(</span>Bundle savedInstanceState<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onCreate<span style='color:#808030; '>(</span>savedInstanceState<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        setContentView<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>activity_map<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mSearchText <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>input_search<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mGps <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>ic_gps<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mInfo <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>place_info<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mPlacePicker <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>place_picker<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mPlaceSender <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>place_sender<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        userController <span style='color:#808030; '>=</span> APIUtils<span style='color:#808030; '>.</span>getFacadeService<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+        getLocationPermission<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> init<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"init: initializing"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mGoogleApiClient <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> GoogleApiClient
+                <span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>addApi<span style='color:#808030; '>(</span>Places<span style='color:#808030; '>.</span>GEO_DATA_API<span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>addApi<span style='color:#808030; '>(</span>Places<span style='color:#808030; '>.</span>PLACE_DETECTION_API<span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>enableAutoManage<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>build<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mSearchText<span style='color:#808030; '>.</span>setOnItemClickListener<span style='color:#808030; '>(</span>mAutocompleteClickListener<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mPlaceAutoCompleteAdapter <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> PlaceAutoCompleteAdapter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> mGoogleApiClient<span style='color:#808030; '>,</span>
+                LAT_LNG_BOUNDS<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mSearchText<span style='color:#808030; '>.</span>setAdapter<span style='color:#808030; '>(</span>mPlaceAutoCompleteAdapter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mSearchText<span style='color:#808030; '>.</span>setOnEditorActionListener<span style='color:#808030; '>(</span><span style='color:#808030; '>(</span>v<span style='color:#808030; '>,</span> actionId<span style='color:#808030; '>,</span> event<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>actionId <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> EditorInfo<span style='color:#808030; '>.</span>IME_ACTION_SEARCH
+                    <span style='color:#808030; '>|</span><span style='color:#808030; '>|</span> actionId <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> EditorInfo<span style='color:#808030; '>.</span>IME_ACTION_DONE
+                    <span style='color:#808030; '>|</span><span style='color:#808030; '>|</span> event<span style='color:#808030; '>.</span>getAction<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> event<span style='color:#808030; '>.</span>ACTION_DOWN
+                    <span style='color:#808030; '>|</span><span style='color:#808030; '>|</span> event<span style='color:#808030; '>.</span>getAction<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> event<span style='color:#808030; '>.</span>KEYCODE_ENTER<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+
+                <span style='color:#696969; '>//execute method for searching</span>
+                geoLocate<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+            <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mGps<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onClick: clicked gps icon"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            getDeviceLocation<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mInfo<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"init: clicked place info"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>mMarker<span style='color:#808030; '>.</span>isInfoWindowShown<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    mMarker<span style='color:#808030; '>.</span>hideInfoWindow<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                    Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"init: place info: "</span> <span style='color:#808030; '>+</span> mPlace<span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    mMarker<span style='color:#808030; '>.</span>showInfoWindow<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>NullPointerException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"init: NullPointerException: "</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mPlacePicker<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            <span style='color:#bb7977; '>int</span> PLACE_PICKET_REQUEST <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+            PlacePicker<span style='color:#808030; '>.</span>IntentBuilder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> PlacePicker<span style='color:#808030; '>.</span>IntentBuilder<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+                startActivityForResult<span style='color:#808030; '>(</span>builder<span style='color:#808030; '>.</span>build<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> PLACE_PICKET_REQUEST<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span>GooglePlayServicesRepairableException e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span>GooglePlayServicesNotAvailableException e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mPlaceSender<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            AlertDialog<span style='color:#808030; '>.</span>Builder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AlertDialog<span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            LayoutInflater inflater <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>getLayoutInflater<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>final</span> View sendDialogView <span style='color:#808030; '>=</span> inflater<span style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>custom_send_window<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setView<span style='color:#808030; '>(</span>sendDialogView<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setCancelable<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800000; font-weight:bold; '>final</span> EditText sendName <span style='color:#808030; '>=</span> sendDialogView<span style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>name_tv<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>final</span> TextView sendCountry <span style='color:#808030; '>=</span> sendDialogView<span style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>country_tv<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>final</span> TextView sendCity <span style='color:#808030; '>=</span> sendDialogView<span style='color:#808030; '>.</span>findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>city_tv<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setTitle<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"send to server?"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            sendCountry<span style='color:#808030; '>.</span>setTextColor<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Color</span><span style='color:#808030; '>.</span>WHITE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            sendCity<span style='color:#808030; '>.</span>setTextColor<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Color</span><span style='color:#808030; '>.</span>WHITE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            sendCountry<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>mPlace<span style='color:#808030; '>.</span>getName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            sendCity<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>mPlace<span style='color:#808030; '>.</span>getAddress<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            builder<span style='color:#808030; '>.</span>setNegativeButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Cancel"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> dialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setPositiveButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"OK"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+                progressDialog <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ProgressDialog<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                progressDialog<span style='color:#808030; '>.</span>setCancelable<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                progressDialog<span style='color:#808030; '>.</span>setMessage<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Loading...."</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                progressDialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                name <span style='color:#808030; '>=</span> sendName<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                address <span style='color:#808030; '>=</span> sendCountry<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+                Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call1 <span style='color:#808030; '>=</span> userController<span style='color:#808030; '>.</span>list<span style='color:#808030; '>(</span>name<span style='color:#808030; '>,</span> address<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                call1<span style='color:#808030; '>.</span>enqueue<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> Callback<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#808030; '>@</span>Override
+                    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onResponse<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull Response<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                        <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getValue<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        <span style='color:#bb7977; font-weight:bold; '>String</span> message <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                            Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                            Intent intent <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Intent<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> MainActivity<span style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                            startActivity<span style='color:#808030; '>(</span>intent<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                            Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        <span style='color:#800080; '>}</span>
+                    <span style='color:#800080; '>}</span>
+
+                    <span style='color:#808030; '>@</span>Override
+                    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onFailure<span style='color:#808030; '>(</span>Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#bb7977; font-weight:bold; '>Throwable</span> t<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                        t<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"an error occurred"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#800080; '>}</span>
+                <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+            <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            AlertDialog dialog <span style='color:#808030; '>=</span> builder<span style='color:#808030; '>.</span>create<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            dialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        hideSoftKeyboard<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onActivityResult<span style='color:#808030; '>(</span><span style='color:#bb7977; '>int</span> requestCode<span style='color:#808030; '>,</span> <span style='color:#bb7977; '>int</span> resultCode<span style='color:#808030; '>,</span> Intent data<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>requestCode <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> PLACE_PICKER_REQUEST<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>resultCode <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> RESULT_OK<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                Place place <span style='color:#808030; '>=</span> PlacePicker<span style='color:#808030; '>.</span>getPlace<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> data<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                PendingResult<span style='color:#808030; '>&lt;</span>PlaceBuffer<span style='color:#808030; '>></span> placeResult <span style='color:#808030; '>=</span> Places<span style='color:#808030; '>.</span>GeoDataApi
+                        <span style='color:#808030; '>.</span>getPlaceById<span style='color:#808030; '>(</span>mGoogleApiClient<span style='color:#808030; '>,</span> place<span style='color:#808030; '>.</span>getId<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                placeResult<span style='color:#808030; '>.</span>setResultCallback<span style='color:#808030; '>(</span>mUpdatePlaceDetailsCallback<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> geoLocate<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"geoLocate: geolocating"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#bb7977; font-weight:bold; '>String</span> searchString <span style='color:#808030; '>=</span> mSearchText<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        Geocoder geocoder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Geocoder<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>List</span><span style='color:#808030; '>&lt;</span>Address<span style='color:#808030; '>></span> list <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ArrayList<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            list <span style='color:#808030; '>=</span> geocoder<span style='color:#808030; '>.</span>getFromLocationName<span style='color:#808030; '>(</span>searchString<span style='color:#808030; '>,</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>IOException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"geoLocate: IOException: "</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>list<span style='color:#808030; '>.</span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>></span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Address address <span style='color:#808030; '>=</span> list<span style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"geoLocate: found a location: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            moveCamera<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> LatLng<span style='color:#808030; '>(</span>address<span style='color:#808030; '>.</span>getLatitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> address<span style='color:#808030; '>.</span>getLongitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> DEFAULT_ZOOM<span style='color:#808030; '>,</span> address<span style='color:#808030; '>.</span>getAddressLine<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            DialogInterface<span style='color:#808030; '>.</span>OnClickListener dialogClickListener <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+                <span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>which<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#800000; font-weight:bold; '>case</span> DialogInterface<span style='color:#808030; '>.</span>BUTTON_NEUTRAL<span style='color:#808030; '>:</span>
+                        <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+            AlertDialog<span style='color:#808030; '>.</span>Builder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AlertDialog<span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            builder<span style='color:#808030; '>.</span>setMessage<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Latitude: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>getLatitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>" Longitude: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>getLongitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>" Country: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>getCountryName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span>
+                    <span style='color:#0000e6; '>" City: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>getLocality<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>" ZipCode: "</span> <span style='color:#808030; '>+</span> address<span style='color:#808030; '>.</span>getPostalCode<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>setNeutralButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Okay"</span><span style='color:#808030; '>,</span> dialogClickListener<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> getDeviceLocation<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"getDeviceLocation: getting the devices current location"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mFusedLocationProviderClient <span style='color:#808030; '>=</span> LocationServices<span style='color:#808030; '>.</span>getFusedLocationProviderClient<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>mLocationPermissionGranted<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                Task location <span style='color:#808030; '>=</span> mFusedLocationProviderClient<span style='color:#808030; '>.</span>getLastLocation<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                location<span style='color:#808030; '>.</span>addOnCompleteListener<span style='color:#808030; '>(</span>task <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+                    <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>task<span style='color:#808030; '>.</span>isSuccessful<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onComplete: found location!"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        Location currentLocation <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>Location<span style='color:#808030; '>)</span> task<span style='color:#808030; '>.</span>getResult<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                        moveCamera<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> LatLng<span style='color:#808030; '>(</span>currentLocation<span style='color:#808030; '>.</span>getLatitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> currentLocation<span style='color:#808030; '>.</span>getLongitude<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> DEFAULT_ZOOM<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"My Location"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onComplete: current location null"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"unable to get current location"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#800080; '>}</span>
+                <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>SecurityException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"getDeviceLocation: Security Exception: "</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> moveCamera<span style='color:#808030; '>(</span>LatLng latLng<span style='color:#808030; '>,</span> <span style='color:#bb7977; '>float</span> zoom<span style='color:#808030; '>,</span> PlaceDto placeDto<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"moveCamera: movering the camera to: lat: "</span> <span style='color:#808030; '>+</span> latLng<span style='color:#808030; '>.</span>latitude <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"lng: "</span> <span style='color:#808030; '>+</span> latLng<span style='color:#808030; '>.</span>longitude<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mMap<span style='color:#808030; '>.</span>moveCamera<span style='color:#808030; '>(</span>CameraUpdateFactory<span style='color:#808030; '>.</span>newLatLngZoom<span style='color:#808030; '>(</span>latLng<span style='color:#808030; '>,</span> zoom<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mMap<span style='color:#808030; '>.</span>clear<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        mMap<span style='color:#808030; '>.</span>setInfoWindowAdapter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> CustomInfoWindowAdapter<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>placeDto <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+                <span style='color:#bb7977; font-weight:bold; '>String</span> snippet <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"Address: "</span> <span style='color:#808030; '>+</span> placeDto<span style='color:#808030; '>.</span>getAddress<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span> <span style='color:#808030; '>+</span>
+                        <span style='color:#0000e6; '>"Phone Number: "</span> <span style='color:#808030; '>+</span> placeDto<span style='color:#808030; '>.</span>getPhoneNumber<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span> <span style='color:#808030; '>+</span>
+                        <span style='color:#0000e6; '>"Website: "</span> <span style='color:#808030; '>+</span> placeDto<span style='color:#808030; '>.</span>getWebsiteUri<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span> <span style='color:#808030; '>+</span>
+                        <span style='color:#0000e6; '>"Price Rating: "</span> <span style='color:#808030; '>+</span> placeDto<span style='color:#808030; '>.</span>getRating<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#800080; '>;</span>
+
+                MarkerOptions options <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> MarkerOptions<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>position<span style='color:#808030; '>(</span>latLng<span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>title<span style='color:#808030; '>(</span>placeDto<span style='color:#808030; '>.</span>getName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>snippet<span style='color:#808030; '>(</span>snippet<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                mMarker <span style='color:#808030; '>=</span> mMap<span style='color:#808030; '>.</span>addMarker<span style='color:#808030; '>(</span>options<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                mMap<span style='color:#808030; '>.</span>addMarker<span style='color:#808030; '>(</span>options<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>NullPointerException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"moveCamera: NullPointerException: "</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+            mMap<span style='color:#808030; '>.</span>addMarker<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> MarkerOptions<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>position<span style='color:#808030; '>(</span>latLng<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        hideSoftKeyboard<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> moveCamera<span style='color:#808030; '>(</span>LatLng latLng<span style='color:#808030; '>,</span> <span style='color:#bb7977; '>float</span> zoom<span style='color:#808030; '>,</span> <span style='color:#bb7977; font-weight:bold; '>String</span> title<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"moveCamera: movering the camera to: lat: "</span> <span style='color:#808030; '>+</span> latLng<span style='color:#808030; '>.</span>latitude <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"lng: "</span> <span style='color:#808030; '>+</span> latLng<span style='color:#808030; '>.</span>longitude<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mMap<span style='color:#808030; '>.</span>moveCamera<span style='color:#808030; '>(</span>CameraUpdateFactory<span style='color:#808030; '>.</span>newLatLngZoom<span style='color:#808030; '>(</span>latLng<span style='color:#808030; '>,</span> zoom<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span style='color:#808030; '>!</span>title<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"My Locatopn"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            MarkerOptions options <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> MarkerOptions<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+                    <span style='color:#808030; '>.</span>position<span style='color:#808030; '>(</span>latLng<span style='color:#808030; '>)</span>
+                    <span style='color:#808030; '>.</span>title<span style='color:#808030; '>(</span>title<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mMap<span style='color:#808030; '>.</span>addMarker<span style='color:#808030; '>(</span>options<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        hideSoftKeyboard<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> initMap<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"initMap: initializing map"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        SupportMapFragment mapFragment <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>SupportMapFragment<span style='color:#808030; '>)</span> getSupportFragmentManager<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>findFragmentById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>map<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mapFragment<span style='color:#808030; '>.</span>getMapAsync<span style='color:#808030; '>(</span>MapActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> getLocationPermission<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"getLocationPermission: getting location permissions"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> permissions <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span>Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_FINE_LOCATION<span style='color:#808030; '>,</span>
+                Manifest<span style='color:#808030; '>.</span>permission<span style='color:#808030; '>.</span>ACCESS_COARSE_LOCATION<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>ContextCompat<span style='color:#808030; '>.</span>checkSelfPermission<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>getApplicationContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span>
+                FINE_LOCATION<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> PackageManager<span style='color:#808030; '>.</span>PERMISSION_GRANTED<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>ContextCompat<span style='color:#808030; '>.</span>checkSelfPermission<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>getApplicationContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>,</span>
+                    COURSE_LOCATION<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> PackageManager<span style='color:#808030; '>.</span>PERMISSION_GRANTED<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                mLocationPermissionGranted <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+                initMap<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                ActivityCompat<span style='color:#808030; '>.</span>requestPermissions<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span>
+                        permissions<span style='color:#808030; '>,</span>
+                        LOCATION_PERMISSION_REQUEST_CODE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+            ActivityCompat<span style='color:#808030; '>.</span>requestPermissions<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span>
+                    permissions<span style='color:#808030; '>,</span>
+                    LOCATION_PERMISSION_REQUEST_CODE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onRequestPermissionsResult<span style='color:#808030; '>(</span><span style='color:#bb7977; '>int</span> requestCode<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> permissions<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull <span style='color:#bb7977; '>int</span><span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> grantResults<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onRequestPermissionsResult: called."</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        mLocationPermissionGranted <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>requestCode<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>case</span> LOCATION_PERMISSION_REQUEST_CODE<span style='color:#808030; '>:</span> <span style='color:#800080; '>{</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>grantResults<span style='color:#808030; '>.</span>length <span style='color:#808030; '>></span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> grantResults<span style='color:#808030; '>.</span>length<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>grantResults<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> PackageManager<span style='color:#808030; '>.</span>PERMISSION_GRANTED<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                            mLocationPermissionGranted <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+                            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onRequestPermissionsResult: permission failed."</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+                        <span style='color:#800080; '>}</span>
+                    <span style='color:#800080; '>}</span>
+                    Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onRequestPermissionsResult: permission granted"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    mLocationPermissionGranted <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+                    <span style='color:#696969; '>//initialize our map</span>
+                    initMap<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> hideSoftKeyboard<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>getWindow<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>setSoftInputMode<span style='color:#808030; '>(</span>WindowManager<span style='color:#808030; '>.</span>LayoutParams<span style='color:#808030; '>.</span>SOFT_INPUT_STATE_ALWAYS_HIDDEN<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#696969; '>/*</span>
+<span style='color:#696969; '>&#xa0;&#xa0;&#xa0;&#xa0;-------------------------------------------------------- google places API autocomplete suggestions -------------------------</span>
+<span style='color:#696969; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> AdapterView<span style='color:#808030; '>.</span>OnItemClickListener mAutocompleteClickListener <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AdapterView<span style='color:#808030; '>.</span>OnItemClickListener<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#808030; '>@</span>Override
+        <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onItemClick<span style='color:#808030; '>(</span>AdapterView<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>?</span><span style='color:#808030; '>></span> parent<span style='color:#808030; '>,</span> View view<span style='color:#808030; '>,</span> <span style='color:#bb7977; '>int</span> position<span style='color:#808030; '>,</span> <span style='color:#bb7977; '>long</span> id<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            hideSoftKeyboard<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800000; font-weight:bold; '>final</span> AutocompletePrediction item <span style='color:#808030; '>=</span> mPlaceAutoCompleteAdapter<span style='color:#808030; '>.</span>getItem<span style='color:#808030; '>(</span>position<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>String</span> placeId <span style='color:#808030; '>=</span> item<span style='color:#808030; '>.</span>getPlaceId<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            PendingResult<span style='color:#808030; '>&lt;</span>PlaceBuffer<span style='color:#808030; '>></span> placeResult <span style='color:#808030; '>=</span> Places<span style='color:#808030; '>.</span>GeoDataApi
+                    <span style='color:#808030; '>.</span>getPlaceById<span style='color:#808030; '>(</span>mGoogleApiClient<span style='color:#808030; '>,</span> placeId<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            placeResult<span style='color:#808030; '>.</span>setResultCallback<span style='color:#808030; '>(</span>mUpdatePlaceDetailsCallback<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+    <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> ResultCallback<span style='color:#808030; '>&lt;</span>PlaceBuffer<span style='color:#808030; '>></span> mUpdatePlaceDetailsCallback <span style='color:#808030; '>=</span> places <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span style='color:#808030; '>!</span>places<span style='color:#808030; '>.</span>getStatus<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>isSuccess<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onResult: place query did not complete successfully: "</span> <span style='color:#808030; '>+</span> places<span style='color:#808030; '>.</span>getStatus<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            places<span style='color:#808030; '>.</span>release<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#800000; font-weight:bold; '>final</span> Place place <span style='color:#808030; '>=</span> places<span style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            mPlace <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> PlaceDto<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setName<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setAddress<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getAddress<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setId<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getId<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setLatLng<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getLatLng<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setRating<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getRating<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setPhoneNumber<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getPhoneNumber<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            mPlace<span style='color:#808030; '>.</span>setWebsiteUri<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getWebsiteUri<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            Log<span style='color:#808030; '>.</span>d<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onResult: place: "</span> <span style='color:#808030; '>+</span> mPlace<span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>NullPointerException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            Log<span style='color:#808030; '>.</span>e<span style='color:#808030; '>(</span>TAG<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"onResult: NullPointerException: "</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+
+        moveCamera<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> LatLng<span style='color:#808030; '>(</span>place<span style='color:#808030; '>.</span>getViewport<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getCenter<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>latitude<span style='color:#808030; '>,</span>
+                place<span style='color:#808030; '>.</span>getViewport<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getCenter<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>longitude<span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> DEFAULT_ZOOM<span style='color:#808030; '>,</span> mPlace<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        places<span style='color:#808030; '>.</span>release<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">UpdateActivity</span></span></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> UpdateActivity <span style='color:#800000; font-weight:bold; '>extends</span> AppCompatActivity <span style='color:#800080; '>{</span>
+
+
+    MainFacade userController<span style='color:#800080; '>;</span>
+
+    ProgressDialog progressDialog<span style='color:#800080; '>;</span>
+    <span style='color:#bb7977; font-weight:bold; '>Long</span> id<span style='color:#800080; '>;</span>
+    <span style='color:#bb7977; font-weight:bold; '>String</span> name<span style='color:#808030; '>,</span> address<span style='color:#800080; '>;</span>
+    EditText updateName<span style='color:#808030; '>,</span> updateAddress<span style='color:#800080; '>;</span>
+    <span style='color:#bb7977; font-weight:bold; '>Button</span> update<span style='color:#800080; '>;</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> onCreateOptionsMenu<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Menu</span> menu<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        getMenuInflater<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>menu<span style='color:#808030; '>.</span>menu_delete<span style='color:#808030; '>,</span> menu<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> onOptionsItemSelected<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>MenuItem</span> item<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+
+        Intent intent <span style='color:#808030; '>=</span> getIntent<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>Long</span> oldId <span style='color:#808030; '>=</span> intent<span style='color:#808030; '>.</span>getLongExtra<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"id"</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        progressDialog <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ProgressDialog<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+        <span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>item<span style='color:#808030; '>.</span>getItemId<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#800000; font-weight:bold; '>case</span> android<span style='color:#808030; '>.</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>home<span style='color:#808030; '>:</span>
+                finish<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+
+            <span style='color:#800000; font-weight:bold; '>case</span> R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>action_delete<span style='color:#808030; '>:</span>
+                AlertDialog<span style='color:#808030; '>.</span>Builder builder <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> AlertDialog<span style='color:#808030; '>.</span>Builder<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                builder<span style='color:#808030; '>.</span>setTitle<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Delete"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                builder
+                        <span style='color:#808030; '>.</span>setMessage<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"are you sure you would like to delete?"</span><span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>setCancelable<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>setPositiveButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Delete"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+
+                            Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call <span style='color:#808030; '>=</span> userController<span style='color:#808030; '>.</span>delete<span style='color:#808030; '>(</span>oldId<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                            call<span style='color:#808030; '>.</span>enqueue<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> Callback<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                                <span style='color:#808030; '>@</span>Override
+                                <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onResponse<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull Response<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                                    <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getValue<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    <span style='color:#bb7977; font-weight:bold; '>String</span> message <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                                    <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                        finish<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    <span style='color:#800080; '>}</span>
+                                <span style='color:#800080; '>}</span>
+
+                                <span style='color:#808030; '>@</span>Override
+                                <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onFailure<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull <span style='color:#bb7977; font-weight:bold; '>Throwable</span> t<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                                    t<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                                    Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"An error occurred"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                                <span style='color:#800080; '>}</span>
+                            <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
+                        <span style='color:#808030; '>.</span>setNegativeButton<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Cancel"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span>dialog<span style='color:#808030; '>,</span> which<span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> dialog<span style='color:#808030; '>.</span>cancel<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                AlertDialog dialog <span style='color:#808030; '>=</span> builder<span style='color:#808030; '>.</span>create<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                dialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onOptionsItemSelected<span style='color:#808030; '>(</span>item<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onCreate<span style='color:#808030; '>(</span>Bundle savedInstanceState<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onCreate<span style='color:#808030; '>(</span>savedInstanceState<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        setContentView<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>activity_update<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        Intent intent <span style='color:#808030; '>=</span> getIntent<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>Long</span> oldId <span style='color:#808030; '>=</span> intent<span style='color:#808030; '>.</span>getLongExtra<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"id"</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>String</span> oldName <span style='color:#808030; '>=</span> intent<span style='color:#808030; '>.</span>getStringExtra<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"name"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>String</span> oldAddress <span style='color:#808030; '>=</span> intent<span style='color:#808030; '>.</span>getStringExtra<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"address"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        updateName <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>edit_text_name<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        updateAddress <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>edit_text_address<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        update <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>button_update<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        userController <span style='color:#808030; '>=</span> APIUtils<span style='color:#808030; '>.</span>getFacadeService<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+
+        updateName<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>oldName<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        updateAddress<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span>oldAddress<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        update<span style='color:#808030; '>.</span>setOnClickListener<span style='color:#808030; '>(</span>v <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> <span style='color:#800080; '>{</span>
+            progressDialog <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ProgressDialog<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            progressDialog<span style='color:#808030; '>.</span>setCancelable<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            progressDialog<span style='color:#808030; '>.</span>setMessage<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Loading.."</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            progressDialog<span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            id <span style='color:#808030; '>=</span> oldId<span style='color:#800080; '>;</span>
+            name <span style='color:#808030; '>=</span> updateName<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            address <span style='color:#808030; '>=</span> updateAddress<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+            Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call <span style='color:#808030; '>=</span> userController<span style='color:#808030; '>.</span>update<span style='color:#808030; '>(</span>id<span style='color:#808030; '>,</span> name<span style='color:#808030; '>,</span> address<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            call<span style='color:#808030; '>.</span>enqueue<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> Callback<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                <span style='color:#808030; '>@</span>Override
+                <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onResponse<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull Response<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getValue<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#bb7977; font-weight:bold; '>String</span> message <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                    <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                        finish<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800080; '>{</span>
+                        Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    <span style='color:#800080; '>}</span>
+                <span style='color:#800080; '>}</span>
+
+                <span style='color:#808030; '>@</span>Override
+                <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onFailure<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull <span style='color:#bb7977; font-weight:bold; '>Throwable</span> t<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    t<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    progressDialog<span style='color:#808030; '>.</span>dismiss<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>UpdateActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"An error occurred"</span><span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><span style="background-color: #ff0000; color: #ffffff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px; text-decoration: underline;">ViewActivity</span></span></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> ViewActivity <span style='color:#800000; font-weight:bold; '>extends</span> AppCompatActivity <span style='color:#800000; font-weight:bold; '>implements</span> SearchView.OnQueryTextListener <span style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> RecyclerView recyclerView<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> ProgressBar progressBar<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>List</span><span style='color:#808030; '>&lt;</span>LocationDto<span style='color:#808030; '>></span> list<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> RecyclerViewAdapter viewAdapter<span style='color:#800080; '>;</span>
+    MainFacade userController<span style='color:#800080; '>;</span>
+
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onCreate<span style='color:#808030; '>(</span>Bundle savedInstanceState<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onCreate<span style='color:#808030; '>(</span>savedInstanceState<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        setContentView<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>layout<span style='color:#808030; '>.</span>activity_view<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        list <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> ArrayList<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        recyclerView <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>recycler_view<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        progressBar <span style='color:#808030; '>=</span> findViewById<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>progress_bar<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        viewAdapter <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> RecyclerViewAdapter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> list<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        LinearLayoutManager linearLayoutManager <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> LinearLayoutManager<span style='color:#808030; '>(</span>getApplicationContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        recyclerView<span style='color:#808030; '>.</span>setLayoutManager<span style='color:#808030; '>(</span>linearLayoutManager<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        recyclerView<span style='color:#808030; '>.</span>setItemAnimator<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> DefaultItemAnimator<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        recyclerView<span style='color:#808030; '>.</span>setAdapter<span style='color:#808030; '>(</span>viewAdapter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        userController <span style='color:#808030; '>=</span> APIUtils<span style='color:#808030; '>.</span>getFacadeService<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        loadDataList<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>protected</span> <span style='color:#bb7977; '>void</span> onResume<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>super</span><span style='color:#808030; '>.</span>onResume<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        loadDataList<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; '>void</span> loadDataList<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+
+        Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call <span style='color:#808030; '>=</span> userController<span style='color:#808030; '>.</span>read<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        call<span style='color:#808030; '>.</span>enqueue<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> Callback<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onResponse<span style='color:#808030; '>(</span><span style='color:#808030; '>@</span>NonNull Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#808030; '>@</span>NonNull Response<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getValue<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#bb7977; font-weight:bold; '>String</span> message <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getMessage<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                progressBar<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>GONE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+                <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    list <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getResult<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    viewAdapter <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> RecyclerViewAdapter<span style='color:#808030; '>(</span>ViewActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> list<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    recyclerView<span style='color:#808030; '>.</span>setAdapter<span style='color:#808030; '>(</span>viewAdapter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    Toast<span style='color:#808030; '>.</span>makeText<span style='color:#808030; '>(</span>ViewActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> message<span style='color:#808030; '>,</span> Toast<span style='color:#808030; '>.</span>LENGTH_SHORT<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span>
+
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onFailure<span style='color:#808030; '>(</span>Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#bb7977; font-weight:bold; '>Throwable</span> t<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                t<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> onCreateOptionsMenu<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Menu</span> menu<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        getMenuInflater<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>inflate<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>menu<span style='color:#808030; '>.</span>menu_search<span style='color:#808030; '>,</span> menu<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>final</span> <span style='color:#bb7977; font-weight:bold; '>MenuItem</span> item <span style='color:#808030; '>=</span> menu<span style='color:#808030; '>.</span>findItem<span style='color:#808030; '>(</span>R<span style='color:#808030; '>.</span>id<span style='color:#808030; '>.</span>action_search<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>final</span> SearchView searchView <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>SearchView<span style='color:#808030; '>)</span> item<span style='color:#808030; '>.</span>getActionView<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        searchView<span style='color:#808030; '>.</span>setQueryHint<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Search for name"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        searchView<span style='color:#808030; '>.</span>setIconified<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        searchView<span style='color:#808030; '>.</span>setOnQueryTextListener<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> onQueryTextSubmit<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> query<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> onQueryTextChange<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> newText<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        recyclerView<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>GONE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        progressBar<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>VISIBLE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call <span style='color:#808030; '>=</span> userController<span style='color:#808030; '>.</span>search<span style='color:#808030; '>(</span>newText<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+        call<span style='color:#808030; '>.</span>enqueue<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> Callback<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onResponse<span style='color:#808030; '>(</span>Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> Response<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                <span style='color:#bb7977; font-weight:bold; '>String</span> value <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getValue<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                progressBar<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>GONE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                recyclerView<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>VISIBLE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"1"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                    list <span style='color:#808030; '>=</span> response<span style='color:#808030; '>.</span>body<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getResult<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    viewAdapter <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> RecyclerViewAdapter<span style='color:#808030; '>(</span>ViewActivity<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>,</span> list<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                    recyclerView<span style='color:#808030; '>.</span>setAdapter<span style='color:#808030; '>(</span>viewAdapter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+                <span style='color:#800080; '>}</span>
+            <span style='color:#800080; '>}</span>
+
+            <span style='color:#808030; '>@</span>Override
+            <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> onFailure<span style='color:#808030; '>(</span>Call<span style='color:#808030; '>&lt;</span>Value<span style='color:#808030; '>></span> call<span style='color:#808030; '>,</span> <span style='color:#bb7977; font-weight:bold; '>Throwable</span> t<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+                progressBar<span style='color:#808030; '>.</span>setVisibility<span style='color:#808030; '>(</span>View<span style='color:#808030; '>.</span>GONE<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800080; '>}</span>
+        <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>true</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+<span style='color:#800080; '>}</span>
+</pre>
+
+</body>
+</html>

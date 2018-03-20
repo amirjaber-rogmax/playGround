@@ -1,0 +1,58 @@
+<html>
+<body>
+
+<pre style='color:#000020;background:#f6f8ff;'>apply plugin<span
+        style='color:#406080; '>:</span> <span
+        style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.application'</span>
+
+android <span style='color:#406080; '>{</span>
+    compileSdkVersion <span style='color:#008c00; '>26</span>
+    defaultConfig <span style='color:#406080; '>{</span>
+        applicationId <span style='color:#800000; '>"</span><span style='color:#1060b6; '>com.rogmax.amirjaber.fundamentals</span><span
+            style='color:#800000; '>"</span>
+        minSdkVersion <span style='color:#008c00; '>15</span>
+        targetSdkVersion <span style='color:#008c00; '>26</span>
+        versionCode <span style='color:#008c00; '>1</span>
+        versionName <span style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>1.0</span><span style='color:#800000; '>"</span>
+        testInstrumentationRunner <span style='color:#800000; '>"</span><span
+            style='color:#1060b6; '>android.support.test.runner.AndroidJUnitRunner</span><span
+            style='color:#800000; '>"</span>
+    <span style='color:#406080; '>}</span>
+    buildTypes <span style='color:#406080; '>{</span>
+        release <span style='color:#406080; '>{</span>
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile<span style='color:#308080; '>(</span><span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'proguard-android.txt'</span><span
+            style='color:#308080; '>)</span><span style='color:#308080; '>,</span> <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'proguard-rules.pro'</span>
+        <span style='color:#406080; '>}</span>
+    <span style='color:#406080; '>}</span>
+<span style='color:#406080; '>}</span>
+
+dependencies <span style='color:#406080; '>{</span>
+    implementation fileTree<span style='color:#308080; '>(</span>dir<span
+            style='color:#406080; '>:</span> <span style='color:#1060b6; '>'libs'</span><span
+            style='color:#308080; '>,</span> include<span style='color:#406080; '>:</span> <span
+            style='color:#308080; '>[</span><span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'*.jar'</span><span
+            style='color:#308080; '>]</span><span style='color:#308080; '>)</span>
+    implementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support:appcompat-v7:26.1.0'</span>
+    implementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support.constraint:constraint-layout:1.0.2'</span>
+    implementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support:support-v4:26.1.0'</span>
+    implementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support:design:26.1.0'</span>
+    testImplementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'junit:junit:4.12'</span>
+    androidTestImplementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support.test:runner:1.0.1'</span>
+    androidTestImplementation <span
+            style='color:#ffffff; background:#dd9999; font-weight:bold; font-style:italic; '>'com.android.support.test.espresso:espresso-core:3.0.1'</span>
+<span style='color:#406080; '>}</span>
+</pre>
+
+</body>
+</html>
