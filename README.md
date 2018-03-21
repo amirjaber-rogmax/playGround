@@ -37,7 +37,8 @@ com.rogmax.amirjaber.playground
 ```
 and the SHA-1 certificate fingerprint
 
-https://imgur.com/a/r9jcV
+![build3](https://user-images.githubusercontent.com/31887286/37705072-77e2fd74-2d03-11e8-8677-9bd113db6187.gif)
+![build4](https://user-images.githubusercontent.com/31887286/37705106-91da81d4-2d03-11e8-882c-deef74f62924.gif)
 
 From here, you wanna create new credentials and get your api key, 
 
